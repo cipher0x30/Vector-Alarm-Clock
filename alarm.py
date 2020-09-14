@@ -42,7 +42,7 @@ except IOError:
 import datetime
 print(datetime.datetime.today().strftime("%H:%M"))
 today = date.today()
-if (today.weekday() == 0):
+"""if (today.weekday() == 0):
     print("Monday")
 if (today.weekday() == 1):
     print("Tuesday")
@@ -57,12 +57,20 @@ if (today.weekday() == 5):
 if (today.weekday() == 6):
     print("Sunday")
 day=int(input("Enter a Day of the week number, 0=M 1=T 2=W 3=Th 4=F 5=F 6=Sn: "))
-hour=int(input("Enter an Hour: "))
-minute=int(input("Enter a Minute: "))
-#hour=int(21)
-#minute=int(46)
+"""
+#hour=int(input("Enter an Hour: "))
+#minute=int(input("Enter a Minute: "))
+
+"""Set your alarm below
+In Python 3, leading zeros are not allowed on numbers. 
+So if you want 08:05AM, you'll just input 8:5 or 08:00AM is 8:0. 
+"""
+hour=int(8)
+minute=int(30)
+
 while True:
-    if day == int(today.weekday()) and hour == int(datetime.datetime.today().strftime("%H")) and minute == int(datetime.datetime.today().strftime("%M")):
+    #if day == int(today.weekday()) and hour == int(datetime.datetime.today().strftime("%H")) and minute == int(datetime.datetime.today().strftime("%M")):
+    if hour == int(datetime.datetime.today().strftime("%H")) and minute == int(datetime.datetime.today().strftime("%M")):
         print("Alarm Raised")
         
         with anki_vector.AsyncRobot() as robot:
