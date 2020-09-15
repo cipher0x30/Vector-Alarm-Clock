@@ -104,11 +104,11 @@ while True:
                     if robot.touch.last_sensor_reading.is_being_touched:
                             with anki_vector.Robot(args.serial) as robot:
                             if int(datetime.datetime.today().strftime("%H")) >= 0 and int(datetime.datetime.today().strftime("%H")) <= 9 and int(datetime.datetime.today().strftime("%M")) <= 59:
-                                action = robot.behavior.say_text("Good morning")
+                                robot.behavior.say_text("Good morning")
                             elif int(datetime.datetime.today().strftime("%H")) >= 10 and int(datetime.datetime.today().strftime("%H")) <= 18 and int(datetime.datetime.today().strftime("%M")) <= 59:
-                                action = robot.behavior.say_text("Good afternoon")
+                                robot.behavior.say_text("Good afternoon")
                             elif int(datetime.datetime.today().strftime("%H")) >= 19 and int(datetime.datetime.today().strftime("%H")) <= 23 and int(datetime.datetime.today().strftime("%M")) <= 59:
-                                action = robot.behavior.say_text("Good evening")
+                                robot.behavior.say_text("Good evening")
                             else:
                                 time.sleep(1)
                             
