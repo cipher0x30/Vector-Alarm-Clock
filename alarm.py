@@ -102,19 +102,30 @@ while True:
                             break
 
                     if robot.touch.last_sensor_reading.is_being_touched:
+                        if int(datetime.datetime.today().strftime("%H")) >= 0 and int(datetime.datetime.today().strftime("%H")) <= 9 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                            args = anki_vector.util.parse_command_args()
                             with anki_vector.Robot(args.serial) as robot:
-                            if int(datetime.datetime.today().strftime("%H")) >= 0 and int(datetime.datetime.today().strftime("%H")) <= 9 and int(datetime.datetime.today().strftime("%M")) <= 59:
                                 robot.behavior.say_text("Good morning")
-                            elif int(datetime.datetime.today().strftime("%H")) >= 10 and int(datetime.datetime.today().strftime("%H")) <= 18 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                                print("Good morning!")
+                        elif int(datetime.datetime.today().strftime("%H")) >= 10 and int(datetime.datetime.today().strftime("%H")) <= 18 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                            args = anki_vector.util.parse_command_args()
+                            with anki_vector.Robot(args.serial) as robot:
                                 robot.behavior.say_text("Good afternoon")
-                            elif int(datetime.datetime.today().strftime("%H")) >= 19 and int(datetime.datetime.today().strftime("%H")) <= 23 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                                print("Good afternoon!")
+                        elif int(datetime.datetime.today().strftime("%H")) >= 19 and int(datetime.datetime.today().strftime("%H")) <= 23 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                            args = anki_vector.util.parse_command_args()
+                            with anki_vector.Robot(args.serial) as robot:
                                 robot.behavior.say_text("Good evening")
-                            else:
+                                print("Good evening!")
+                        else:
+                            args = anki_vector.util.parse_command_args()
+                            with anki_vector.Robot(args.serial) as robot:
+                                robot.behavior.say_text("You're late!")
                                 time.sleep(1)
                             
-                            print("Alarm Cancelled!")
-                            sys.exit()
-                            break
+                        print("Alarm Cancelled!")
+                        sys.exit()
+                        break
 
         break
     else:
