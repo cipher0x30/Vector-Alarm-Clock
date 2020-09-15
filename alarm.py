@@ -65,8 +65,8 @@ day=int(input("Enter a Day of the week number, 0=M 1=T 2=W 3=Th 4=F 5=F 6=Sn: ")
 In Python 3, leading zeros are not allowed on numbers. 
 So if you want 08:05AM, you'll just input 8:5 or 08:00AM is 8:0. 
 """
-hour=int(8)
-minute=int(30)
+hour=int(9)
+minute=int(55)
 
 while True:
     #if day == int(today.weekday()) and hour == int(datetime.datetime.today().strftime("%H")) and minute == int(datetime.datetime.today().strftime("%M")):
@@ -102,6 +102,16 @@ while True:
                             break
 
                     if robot.touch.last_sensor_reading.is_being_touched:
+                            with anki_vector.Robot(args.serial) as robot:
+                            if int(datetime.datetime.today().strftime("%H")) >= 0 and int(datetime.datetime.today().strftime("%H")) <= 9 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                                action = robot.behavior.say_text("Good morning")
+                            elif int(datetime.datetime.today().strftime("%H")) >= 10 and int(datetime.datetime.today().strftime("%H")) <= 18 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                                action = robot.behavior.say_text("Good afternoon")
+                            elif int(datetime.datetime.today().strftime("%H")) >= 19 and int(datetime.datetime.today().strftime("%H")) <= 23 and int(datetime.datetime.today().strftime("%M")) <= 59:
+                                action = robot.behavior.say_text("Good evening")
+                            else:
+                                time.sleep(1)
+                            
                             print("Alarm Cancelled!")
                             sys.exit()
                             break
