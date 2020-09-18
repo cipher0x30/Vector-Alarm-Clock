@@ -32,7 +32,7 @@ def make_text_image(text_to_draw, x, y, font=None):
     return text_image
 
 try:
-    font_file = ImageFont.truetype("lcd.ttf", 75)
+    font_file = ImageFont.truetype("lcd.ttf", 85)
 except IOError:
     try:
         font_file = ImageFont.truetype("arial.ttf", 27)
@@ -42,24 +42,6 @@ except IOError:
 import datetime
 print(datetime.datetime.today().strftime("%H:%M"))
 today = date.today()
-"""if (today.weekday() == 0):
-    print("Monday")
-if (today.weekday() == 1):
-    print("Tuesday")
-if (today.weekday() == 2):
-    print("Wednesday")
-if (today.weekday() == 3):
-    print("Thursday")
-if (today.weekday() == 4):
-    print("Friday")
-if (today.weekday() == 5):
-    print("Saturday")
-if (today.weekday() == 6):
-    print("Sunday")
-day=int(input("Enter a Day of the week number, 0=M 1=T 2=W 3=Th 4=F 5=F 6=Sn: "))
-"""
-#hour=int(input("Enter an Hour: "))
-#minute=int(input("Enter a Minute: "))
 
 """Set your alarm below
 In Python 3, leading zeros are not allowed on numbers. 
@@ -68,8 +50,9 @@ So if you want 08:05AM, you'll just input 8:5 or 08:00AM is 8:0.
 hour=int(9)
 minute=int(55)
 
+greeting = "Hello"
+
 while True:
-    #if day == int(today.weekday()) and hour == int(datetime.datetime.today().strftime("%H")) and minute == int(datetime.datetime.today().strftime("%M")):
     if hour == int(datetime.datetime.today().strftime("%H")) and minute == int(datetime.datetime.today().strftime("%M")):
         print("Alarm Raised")
         
@@ -84,7 +67,10 @@ while True:
                 robot.behavior.set_lift_height(0.0)
 
                 time1 = datetime.datetime.now().strftime(('%H:%M'))
-                face_sum = (str(time1))
+                time_24hour = datetime.datetime.strptime(time1, "%H:%M")
+                time_12hour = time_24hour.strftime("%I:%M %p")
+
+                face_sum = (str(time_12hour))
                 text_to_draw = face_sum
                 face_image = make_text_image(text_to_draw, 20, 5, font_file)
                 args = anki_vector.util.parse_command_args()
@@ -93,40 +79,30 @@ while True:
                 screen_data = anki_vector.screen.convert_image_to_screen_data(face_image)
                 robot.screen.set_screen_with_image_data(screen_data, 10.0, interrupt_running=True)
 
-                action = robot.behavior.say_text("The time is {}".format(str(time1)))
+                action = robot.behavior.say_text("The time is {}".format(str(time_12hour)))
 
                 while True:
 
                     if action.done():
-                            print("Alarm complete!")
-                            break
+                        print("Alarm complete!")
+                        break
 
                     if robot.touch.last_sensor_reading.is_being_touched:
                         if int(datetime.datetime.today().strftime("%H")) >= 0 and int(datetime.datetime.today().strftime("%H")) <= 9 and int(datetime.datetime.today().strftime("%M")) <= 59:
-                            args = anki_vector.util.parse_command_args()
-                            with anki_vector.Robot(args.serial) as robot:
-                                robot.behavior.say_text("Good morning")
-                                print("Good morning!")
+                            greeting = "Good morning!"
                         elif int(datetime.datetime.today().strftime("%H")) >= 10 and int(datetime.datetime.today().strftime("%H")) <= 18 and int(datetime.datetime.today().strftime("%M")) <= 59:
-                            args = anki_vector.util.parse_command_args()
-                            with anki_vector.Robot(args.serial) as robot:
-                                robot.behavior.say_text("Good afternoon")
-                                print("Good afternoon!")
+                            greeting = "Good afternoon!"
                         elif int(datetime.datetime.today().strftime("%H")) >= 19 and int(datetime.datetime.today().strftime("%H")) <= 23 and int(datetime.datetime.today().strftime("%M")) <= 59:
-                            args = anki_vector.util.parse_command_args()
-                            with anki_vector.Robot(args.serial) as robot:
-                                robot.behavior.say_text("Good evening")
-                                print("Good evening!")
+                            greeting = "Good evening!"
                         else:
-                            args = anki_vector.util.parse_command_args()
-                            with anki_vector.Robot(args.serial) as robot:
-                                robot.behavior.say_text("You're late!")
-                                time.sleep(1)
-                            
+                            greeting = "You're late!"
+                            time.sleep(1)
+                        
                         print("Alarm Cancelled!")
+                        print(greeting)
+                        robot.behavior.say_text(greeting)
                         sys.exit()
                         break
-
         break
     else:
         time.sleep(1)
